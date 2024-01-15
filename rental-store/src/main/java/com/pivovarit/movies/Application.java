@@ -7,6 +7,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 // DI -> MovieRepository -> MovieService
 // wystawić proste API REST do MovieService#findById
 // http://github.com/4comprehension/atl_150124
+// @RestController, @{VERB}Mapping
+// @PathVariable
 @SpringBootApplication
 public class Application {
     public static void main(String[] args) {
