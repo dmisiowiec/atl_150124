@@ -1,8 +1,8 @@
-package com.pivovarit.movies.domain;
+package com.pivovarit.movies;
 
 import java.util.Objects;
 
-public class MovieId {
+class MovieId {
     private final long id;
 
     public MovieId(long id) {

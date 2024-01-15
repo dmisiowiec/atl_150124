@@ -1,8 +1,8 @@
-package com.pivovarit.movies.domain;
+package com.pivovarit.movies;
 
 import java.util.Objects;
 
-public class Movie {
+class Movie {
 
     private final MovieId id;
     private final String title;
