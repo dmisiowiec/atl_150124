@@ -14,15 +14,15 @@ public class Movie {
         this.type = type;
     }
 
-    String getTitle() {
+    public String getTitle() {
         return title;
     }
 
-    MovieType getType() {
+    public MovieType getType() {
         return type;
     }
 
-    MovieId getId() {
+    public MovieId getId() {
         return id;
     }
 

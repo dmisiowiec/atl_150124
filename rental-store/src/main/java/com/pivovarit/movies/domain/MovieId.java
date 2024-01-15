@@ -22,7 +22,7 @@ public class MovieId {
         return Objects.hash(id);
     }
 
-    long getId() {
+    public long getId() {
         return id;
     }
 }
