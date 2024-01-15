@@ -7,11 +7,13 @@ import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.RepeatedTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 @Disabled // TODO
 @SpringBootTest
+@ActiveProfiles("prod")
 class MovieIntegrationTest {
 
     @Autowired
