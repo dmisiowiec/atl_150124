@@ -1,11 +1,13 @@
 package com.pivovarit.movies;
 
 import com.pivovarit.descriptions.MovieDescriptionsFacade;
+import com.pivovarit.descriptions.api.Description;
 import com.pivovarit.movies.api.MovieAddRequest;
 import com.pivovarit.movies.api.MovieDto;
 
 import java.util.Collection;
 import java.util.Optional;
+import java.util.function.Function;
 
 public class MovieFacade {
 
@@ -19,7 +21,7 @@ public class MovieFacade {
 
     public MovieDto findById(long id) {
         return movieRepository.findById(new MovieId(id))
-          .map(MovieConverter::from)
+          .map(toMovieWithDescription())
           .orElseThrow(() -> new RuntimeException("Movie not found"));
     }
 
@@ -28,14 +30,21 @@ public class MovieFacade {
     }
 
     public Collection<MovieDto> findAll() {
-        return movieRepository.findAll().stream().map(MovieConverter::from).toList();
+        return movieRepository.findAll().stream().map(toMovieWithDescription()).toList();
     }
 
     public Optional<MovieDto> findByTitle(String title) {
-        return movieRepository.findByTitle(title).map(MovieConverter::from);
+        return movieRepository.findByTitle(title).map(toMovieWithDescription());
     }
 
     public Collection<MovieDto> findByType(String type) {
-        return movieRepository.findByType(MovieType.valueOf(type)).stream().map(MovieConverter::from).toList();
+        return movieRepository.findByType(MovieType.valueOf(type)).stream().map(toMovieWithDescription()).toList();
+    }
+
+    private Function<Movie, MovieDto> toMovieWithDescription() {
+        return movie -> {
+            var description = movieDescriptionsFacade.findOneById((int) movie.id().id()).orElse(new Description(""));
+            return MovieConverter.from(movie, description.description());
+        };
     }
 }
