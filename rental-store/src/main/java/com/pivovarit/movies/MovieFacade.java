@@ -3,6 +3,7 @@ package com.pivovarit.movies;
 import com.pivovarit.descriptions.MovieDescriptionsFacade;
 import com.pivovarit.movies.api.MovieAddRequest;
 import com.pivovarit.movies.api.MovieDto;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
 import java.util.Optional;
@@ -23,6 +24,7 @@ public class MovieFacade {
           .orElseThrow(() -> new RuntimeException("Movie not found"));
     }
 
+    @Transactional
     public long save(MovieAddRequest movie) {
         return movieRepository.save(MovieConverter.from(movie)).getId();
     }
