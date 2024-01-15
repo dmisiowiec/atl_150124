@@ -36,9 +36,9 @@ class MovieIntegrationTest {
         movieFacade.save(movie);
 
         // then
-        var result = movieFacade.findById(movie.getId());
-        assertThat(result.getId()).isEqualTo(movie.getId());
-        assertThat(result.getTitle()).isEqualTo(movie.getTitle());
-        assertThat(result.getType()).isEqualTo(movie.getType());
+        var result = movieFacade.findById(movie.id());
+        assertThat(result.id()).isEqualTo(movie.id());
+        assertThat(result.title()).isEqualTo(movie.title());
+        assertThat(result.type()).isEqualTo(movie.type());
     }
 }

@@ -3,7 +3,6 @@ package com.pivovarit.movies;
 import com.pivovarit.descriptions.MovieDescriptionsFacade;
 import com.pivovarit.movies.api.MovieAddRequest;
 import com.pivovarit.movies.api.MovieDto;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
 import java.util.Optional;
@@ -25,7 +24,7 @@ public class MovieFacade {
     }
 
     public long save(MovieAddRequest movie) {
-        return movieRepository.save(MovieConverter.from(movie)).getId();
+        return movieRepository.save(MovieConverter.from(movie)).id();
     }
 
     public Collection<MovieDto> findAll() {

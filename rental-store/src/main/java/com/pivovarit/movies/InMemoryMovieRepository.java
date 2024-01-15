@@ -11,8 +11,8 @@ class InMemoryMovieRepository implements MovieRepository {
 
     @Override
     public MovieId save(Movie movie) {
-        movies.put(movie.getId(), movie);
-        return movie.getId();
+        movies.put(movie.id(), movie);
+        return movie.id();
     }
 
     @Override
@@ -23,14 +23,14 @@ class InMemoryMovieRepository implements MovieRepository {
     @Override
     public Optional<Movie> findByTitle(String title) {
         return movies.values().stream()
-          .filter(m -> m.getTitle().equals(title))
+          .filter(m -> m.title().equals(title))
           .findAny();
     }
 
     @Override
     public Collection<Movie> findByType(MovieType type) {
         return movies.values().stream()
-          .filter(m -> m.getType() == type)
+          .filter(m -> m.type() == type)
           .toList();
     }
 

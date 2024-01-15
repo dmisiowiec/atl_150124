@@ -18,11 +18,11 @@ class JdbiMovieRepository implements MovieRepository {
     public MovieId save(Movie movie) {
         return jdbi.withHandle(handle -> {
             handle.createUpdate("INSERT INTO movies (id, title, type) VALUES (:id, :title, :type)")
-              .bind("id", movie.getId().getId())
-              .bind("title", movie.getTitle())
-              .bind("type", movie.getType().name())
+              .bind("id", movie.id().id())
+              .bind("title", movie.title())
+              .bind("type", movie.type().name())
               .execute();
-            return movie.getId();
+            return movie.id();
         });
     }
 
@@ -50,7 +50,7 @@ class JdbiMovieRepository implements MovieRepository {
     @Override
     public Optional<Movie> findById(MovieId id) {
         return jdbi.withHandle(handle -> handle.createQuery("SELECT * FROM movies WHERE id = :id")
-          .bind("id", id.getId())
+          .bind("id", id.id())
           .map(toMovie())
           .findOne());
     }
