@@ -16,7 +16,7 @@ public class MovieService {
         this.movieRepository = movieRepository;
     }
 
-    public Movie findById(int id) {
+    public Movie findById(long id) {
         return movieRepository.findById(new MovieId(id))
           .orElseThrow(() -> new RuntimeException("Movie not found"));
     }
