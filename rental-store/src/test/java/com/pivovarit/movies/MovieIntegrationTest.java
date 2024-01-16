@@ -1,8 +1,10 @@
 package com.pivovarit.movies;
 
+import com.github.tomakehurst.wiremock.client.WireMock;
+import com.github.tomakehurst.wiremock.junit5.WireMockTest;
 import com.pivovarit.movies.api.MovieAddRequest;
 import org.jdbi.v3.core.Jdbi;
-import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -14,11 +16,14 @@ import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 import org.testcontainers.utility.DockerImageName;
 
+import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
+import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 @ActiveProfiles("prod")
 @Testcontainers
+@WireMockTest(httpPort = 8082)
 class MovieIntegrationTest {
 
     @Container
@@ -39,9 +44,10 @@ class MovieIntegrationTest {
     @Autowired
     private Jdbi jdbi;
 
-    @AfterEach
+    @BeforeEach
     void setUp() {
         jdbi.useHandle(handle -> handle.execute("DELETE FROM movies"));
+        stubDescriptionsService();
     }
 
     @Test
@@ -57,5 +63,22 @@ class MovieIntegrationTest {
         assertThat(result.id()).isEqualTo(movie.id());
         assertThat(result.title()).isEqualTo(movie.title());
         assertThat(result.type()).isEqualTo(movie.type());
+        assertThat(result.description()).isEqualTo("lorem ipsum");
+    }
+
+    private static void stubDescriptionsService() {
+        stubFor(WireMock.get("/descriptions/42")
+          .willReturn(
+            aResponse()
+              .withStatus(200)
+              .withHeader("Content-Type", "application/json")
+              .withBody("""
+                {
+                  "description": "lorem ipsum"
+                }
+                """
+              )
+          )
+        );
     }
 }
