@@ -17,6 +17,18 @@ jobs:
           java-version: ${{ matrix.java }}
           distribution: 'zulu'
           architecture: ${{ matrix.architecture }}
+
       - name: Build with Maven
         run: mvn verify
+
+      - name: Build Docker image
+        working-directory: movie-descriptions
+        run: docker build -t movie-descriptions .
+
+      - name: Run movie-descriptions
+        run: docker run -d -p 8082:8082 movie-descriptions
+
+      - name: Run tests
+        working-directory: movie-descriptions
+        run: ./blackbox.sh
 
