@@ -2,6 +2,7 @@ package com.pivovarit.movies;
 
 import org.jdbi.v3.core.Jdbi;
 import org.jdbi.v3.sqlobject.SqlObjectPlugin;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -23,5 +24,10 @@ class RentalProdConfiguration {
     @Bean
     MovieRepository jdbiMovieRepository(Jdbi jdbi) {
         return new JdbiMovieRepository(jdbi);
+    }
+
+    @Bean
+    DescriptionsRepository descriptionsRepositoryAdapter(@Value("${service.descriptions.url}") String url) {
+        return new RestMovieDescriptionsRepository(url);
     }
 }
