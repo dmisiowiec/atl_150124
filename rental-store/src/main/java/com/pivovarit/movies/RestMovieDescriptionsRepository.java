@@ -23,6 +23,6 @@ record RestMovieDescriptionsRepository(String url) implements DescriptionsReposi
         }
     }
 
-    public record Description(String description) {
+    record Description(String description) {
     }
 }

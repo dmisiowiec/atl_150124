@@ -1,5 +1,6 @@
 package com.pivovarit.movies;
 
+import com.pivovarit.access.Public;
 import com.pivovarit.movies.api.MovieAddRequest;
 import com.pivovarit.movies.api.MovieDto;
 
@@ -7,6 +8,7 @@ import java.util.Collection;
 import java.util.Optional;
 import java.util.function.Function;
 
+@Public
 public record MovieFacade(MovieRepository movieRepository, DescriptionsRepository movieDescriptions) {
 
     public MovieDto findById(long id) {
