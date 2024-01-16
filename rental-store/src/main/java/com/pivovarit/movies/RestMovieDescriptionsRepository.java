@@ -1,6 +1,7 @@
 package com.pivovarit.movies;
 
-import com.pivovarit.descriptions.api.Description;
+import org.springframework.web.client.RestClient;
+import org.springframework.web.client.RestClientException;
 
 import java.util.Optional;
 
@@ -8,6 +9,20 @@ record RestMovieDescriptionsRepository(String url) implements DescriptionsReposi
 
     @Override
     public Optional<Description> findOneById(int movieId) {
-        return Optional.empty();
+        var client = RestClient.builder()
+          .baseUrl(url)
+          .build();
+
+        try {
+            return Optional.ofNullable(client.get()
+              .uri("/descriptions/{id}", movieId)
+              .retrieve()
+              .body(Description.class));
+        } catch (RestClientException e) {
+            return Optional.empty();
+        }
+    }
+
+    public record Description(String description) {
     }
 }

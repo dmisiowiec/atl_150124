@@ -1,6 +1,5 @@
 package com.pivovarit.movies;
 
-import com.pivovarit.descriptions.api.Description;
 import com.pivovarit.movies.api.MovieAddRequest;
 import com.pivovarit.movies.api.MovieDto;
 
@@ -34,7 +33,7 @@ public record MovieFacade(MovieRepository movieRepository, DescriptionsRepositor
 
     private Function<Movie, MovieDto> toMovieWithDescription() {
         return movie -> {
-            var description = movieDescriptions.findOneById((int) movie.id().id()).orElse(new Description(""));
+            var description = movieDescriptions.findOneById((int) movie.id().id()).orElse(new RestMovieDescriptionsRepository.Description(""));
             return MovieConverter.from(movie, description.description());
         };
     }
