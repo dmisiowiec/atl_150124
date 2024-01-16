@@ -1,4 +1,4 @@
-package com.pivovarit.movies;
+package com.pivovarit.descriptions;
 
 import com.pivovarit.access.Public;
 import com.tngtech.archunit.core.importer.ImportOption;

@@ -1,6 +1,6 @@
-package com.pivovarit.movies;
+package com.pivovarit.descriptions;
 
-import com.pivovarit.movies.api.MovieAddRequest;
+import com.pivovarit.descriptions.api.MovieAddRequest;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;

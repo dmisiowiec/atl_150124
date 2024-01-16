@@ -1,4 +1,4 @@
-package com.pivovarit.movies;
+package com.pivovarit.descriptions;
 
 import java.util.Collection;
 import java.util.HashMap;

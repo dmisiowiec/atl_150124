@@ -1,4 +1,4 @@
-package com.pivovarit.movies;
+package com.pivovarit.descriptions;
 
 import org.springframework.web.client.RestClient;
 import org.springframework.web.client.RestClientException;

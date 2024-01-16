@@ -1,8 +1,8 @@
-package com.pivovarit.movies;
+package com.pivovarit.descriptions;
 
 import com.pivovarit.access.Public;
-import com.pivovarit.movies.api.MovieAddRequest;
-import com.pivovarit.movies.api.MovieDto;
+import com.pivovarit.descriptions.api.MovieAddRequest;
+import com.pivovarit.descriptions.api.MovieDto;
 
 import java.util.Collection;
 import java.util.Optional;

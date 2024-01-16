@@ -1,4 +1,4 @@
 package com.pivovarit.descriptions.api;
 
-public record Description(String description) {
+public record Description(int id, String description) {
 }

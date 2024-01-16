@@ -1,8 +1,4 @@
-package com.pivovarit.movies;
-
-import com.pivovarit.movies.Movie;
-import com.pivovarit.movies.MovieId;
-import com.pivovarit.movies.MovieType;
+package com.pivovarit.descriptions;
 
 import java.util.Collection;
 import java.util.Optional;

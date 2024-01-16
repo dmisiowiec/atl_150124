@@ -2,12 +2,13 @@ package com.pivovarit;
 
 import com.pivovarit.descriptions.MovieDescriptionsFacade;
 import com.pivovarit.descriptions.api.Description;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-class DescriptionsRestController {
+public class DescriptionsRestController {
 
     private final MovieDescriptionsFacade descriptions;
 
@@ -16,7 +17,7 @@ class DescriptionsRestController {
     }
 
     @GetMapping("/descriptions/{id}")
-    Description findOneById(@PathVariable int id) {
-        return descriptions.findOneById(id).orElseThrow();
+    ResponseEntity<Description> findOneById(@PathVariable int id) {
+        return ResponseEntity.of(descriptions.findOneById(id));
     }
 }
