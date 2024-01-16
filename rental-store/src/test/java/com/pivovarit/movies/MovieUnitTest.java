@@ -1,10 +1,11 @@
 package com.pivovarit.movies;
 
-import com.pivovarit.descriptions.MovieDescriptionsFacade;
 import com.pivovarit.movies.api.MovieAddRequest;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
+
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -221,6 +222,6 @@ class MovieUnitTest {
     }
 
     public static MovieFacade inMemoryInstance() {
-        return new MovieFacade(new InMemoryMovieRepository(), movieId -> new MovieDescriptionsFacade().findOneById(movieId));
+        return new MovieFacade(new InMemoryMovieRepository(), movieId -> Optional.empty());
     }
 }
