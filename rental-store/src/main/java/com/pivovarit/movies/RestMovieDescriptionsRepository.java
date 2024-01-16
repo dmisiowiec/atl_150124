@@ -1,4 +1,4 @@
-package com.pivovarit.descriptions;
+package com.pivovarit.movies;
 
 import org.springframework.web.client.RestClient;
 import org.springframework.web.client.RestClientException;
@@ -16,6 +16,7 @@ record RestMovieDescriptionsRepository(String url) implements DescriptionsReposi
         try {
             return Optional.ofNullable(client.get()
               .uri("/descriptions/{id}", movieId)
+              .header("Content-Type", "application/json")
               .retrieve()
               .body(Description.class));
         } catch (RestClientException e) {

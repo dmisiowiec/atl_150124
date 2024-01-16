@@ -1,4 +1,4 @@
-package com.pivovarit.descriptions;
+package com.pivovarit.movies;
 
 import java.util.Collection;
 import java.util.Optional;

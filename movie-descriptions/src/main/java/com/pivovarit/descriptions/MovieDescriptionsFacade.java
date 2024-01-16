@@ -1,6 +1,6 @@
 package com.pivovarit.descriptions;
 
-import com.pivovarit.descriptions.api.Description;
+import com.pivovarit.movies.api.Description;
 
 import java.util.Optional;
 

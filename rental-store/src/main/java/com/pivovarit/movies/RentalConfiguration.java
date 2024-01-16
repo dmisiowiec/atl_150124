@@ -1,4 +1,4 @@
-package com.pivovarit.descriptions;
+package com.pivovarit.movies;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

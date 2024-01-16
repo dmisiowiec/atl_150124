@@ -1,8 +1,8 @@
-package com.pivovarit.descriptions;
+package com.pivovarit.movies;
 
 import com.github.tomakehurst.wiremock.client.WireMock;
 import com.github.tomakehurst.wiremock.junit5.WireMockTest;
-import com.pivovarit.descriptions.api.MovieAddRequest;
+import com.pivovarit.movies.api.MovieAddRequest;
 import org.jdbi.v3.core.Jdbi;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

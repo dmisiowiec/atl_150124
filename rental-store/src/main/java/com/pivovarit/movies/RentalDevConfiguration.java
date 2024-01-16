@@ -1,6 +1,6 @@
-package com.pivovarit.descriptions;
+package com.pivovarit.movies;
 
-import com.pivovarit.descriptions.api.MovieAddRequest;
+import com.pivovarit.movies.api.MovieAddRequest;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

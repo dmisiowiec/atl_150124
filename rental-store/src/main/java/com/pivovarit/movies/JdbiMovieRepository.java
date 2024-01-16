@@ -1,4 +1,4 @@
-package com.pivovarit.descriptions;
+package com.pivovarit.movies;
 
 import org.jdbi.v3.core.Jdbi;
 import org.jdbi.v3.core.mapper.RowMapper;
