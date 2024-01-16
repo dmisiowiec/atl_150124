@@ -8,7 +8,12 @@ import org.springframework.context.annotation.Configuration;
 class RentalConfiguration {
 
     @Bean
-    MovieFacade movieFacade(MovieRepository movieRepository, MovieDescriptionsFacade movieDescriptionsFacade) {
-        return new MovieFacade(movieRepository, movieDescriptionsFacade);
+    MovieFacade movieFacade(MovieRepository movieRepository, DescriptionsRepository movieDescriptions) {
+        return new MovieFacade(movieRepository, movieDescriptions);
+    }
+
+    @Bean
+    DescriptionsRepository descriptionsRepositoryAdapter(MovieDescriptionsFacade movieDescriptionsFacade) {
+        return movieDescriptionsFacade::findOneById;
     }
 }
