@@ -25,8 +25,8 @@ public class MovieFacade {
           .orElseThrow(() -> new RuntimeException("Movie not found"));
     }
 
-    public long save(MovieAddRequest movie) {
-        return movieRepository.save(MovieConverter.from(movie)).id();
+    public void save(MovieAddRequest movie) {
+        movieRepository.save(MovieConverter.from(movie)).id();
     }
 
     public Collection<MovieDto> findAll() {

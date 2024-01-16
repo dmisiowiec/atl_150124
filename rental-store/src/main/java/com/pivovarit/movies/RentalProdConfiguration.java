@@ -1,10 +1,11 @@
 package com.pivovarit.movies;
 
 import org.jdbi.v3.core.Jdbi;
+import org.jdbi.v3.sqlobject.SqlObjectPlugin;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.Profile;
+import org.springframework.jdbc.datasource.TransactionAwareDataSourceProxy;
 
 import javax.sql.DataSource;
 
@@ -14,7 +15,9 @@ class RentalProdConfiguration {
 
     @Bean
     Jdbi jdbi(DataSource ds) {
-        return Jdbi.create(ds);
+        Jdbi jdbi = Jdbi.create(new TransactionAwareDataSourceProxy(ds));
+        jdbi.installPlugin(new SqlObjectPlugin());
+        return jdbi;
     }
 
     @Bean
