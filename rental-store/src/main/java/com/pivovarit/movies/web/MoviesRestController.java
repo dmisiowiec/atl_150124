@@ -57,17 +57,15 @@ public class MoviesRestController {
         return MovieDtoRepresentationModel.from(movieService.findById(id));
     }
 
-    @Operation(description = "Rent movie by id")
-    @GetMapping("/movies/{id}/rent")
-    ResponseEntity<Void> rentMovie(@PathVariable int id) {
-        System.out.println("Renting movie with id: " + id);
+    @PostMapping("/movies/{id}/rent")
+    ResponseEntity<Void> rentMovie(@PathVariable int id, @RequestBody Account account) {
+        movieService.rentMovie(id, account.accountId());
         return ResponseEntity.ok().build();
     }
 
-    @Operation(description = "Return movie by id")
-    @GetMapping("/movies/{id}/return")
-    ResponseEntity<Void> returnMovie(@PathVariable int id) {
-        System.out.println("Returning movie with id: " + id);
+    @PostMapping("/movies/{id}/return")
+    ResponseEntity<Void> returnMovie(@PathVariable int id, @RequestBody Account account) {
+        movieService.returnMovie(id, account.accountId());
         return ResponseEntity.ok().build();
     }
 
@@ -78,5 +76,8 @@ public class MoviesRestController {
           .map(MovieDtoRepresentationModel::from)
           .map(ResponseEntity::ok)
           .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    public record Account(long accountId) {
     }
 }

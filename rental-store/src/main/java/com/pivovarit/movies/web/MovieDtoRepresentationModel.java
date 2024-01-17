@@ -25,8 +25,6 @@ class MovieDtoRepresentationModel extends RepresentationModel<MovieDtoRepresenta
         model.add(linkTo(methodOn(MoviesRestController.class).findByTitle(dto.title())).withRel("movieByTitle"));
         model.add(linkTo(methodOn(MoviesRestController.class).getMovies()).withRel("allMovies"));
         model.add(linkTo(methodOn(MoviesRestController.class).getMoviesByType(dto.type())).withRel("sameTypeMovies"));
-        model.add(linkTo(methodOn(MoviesRestController.class).rentMovie((int) dto.id())).withRel("rent"));
-        model.add(linkTo(methodOn(MoviesRestController.class).returnMovie((int) dto.id())).withRel("return"));
         return model;
     }
 }

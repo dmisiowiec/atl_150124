@@ -9,7 +9,8 @@ import java.util.Optional;
 import java.util.function.Function;
 
 @Public
-public record MovieFacade(MovieRepository movieRepository, DescriptionsRepository movieDescriptions) {
+public record MovieFacade(MovieRepository movieRepository, DescriptionsRepository movieDescriptions,
+                          RentalHistory rentals) {
 
     public MovieDto findById(long id) {
         return movieRepository.findById(new MovieId(id))
@@ -35,8 +36,19 @@ public record MovieFacade(MovieRepository movieRepository, DescriptionsRepositor
 
     private Function<Movie, MovieDto> toMovieWithDescription() {
         return movie -> {
-            var description = movieDescriptions.findOneById((int) movie.id().id()).orElse(new RestMovieDescriptionsRepository.Description(""));
+            var description = movieDescriptions.findOneById((int) movie.id().id())
+              .orElse(new RestMovieDescriptionsRepository.Description(""));
             return MovieConverter.from(movie, description.description());
         };
+    }
+
+    public void rentMovie(int movieId, long accountId) {
+        System.out.println("Renting movie with id: " + movieId);
+        rentals.save(new RentalEvent(RentalEvent.EventType.RENTED, new MovieId(movieId), accountId));
+    }
+
+    public void returnMovie(int movieId, long accountId) {
+        System.out.println("Returning movie with id: " + movieId);
+        rentals.save(new RentalEvent(RentalEvent.EventType.RETURNED, new MovieId(movieId), accountId));
     }
 }

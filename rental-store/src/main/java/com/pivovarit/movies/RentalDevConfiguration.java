@@ -32,4 +32,5 @@ class RentalDevConfiguration {
     DescriptionsRepository descriptionsRepository() {
         return movieId -> Optional.of(new RestMovieDescriptionsRepository.Description("lorem ipsum"));
     }
+
 }
