@@ -1,20 +1,17 @@
-package com.pivovarit;
+package com.pivovarit.movies.web;
 
 import com.pivovarit.movies.MovieFacade;
 import com.pivovarit.movies.api.MovieAddRequest;
-import com.pivovarit.movies.api.MovieDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Collection;
 import java.util.Map;
-import java.util.Optional;
 
 @RestController
 public class MoviesRestController {
@@ -33,19 +30,41 @@ public class MoviesRestController {
         return Map.of("id", movie.id());
     }
 
-    @GetMapping("/movies?type={type}")
-    Collection<MovieDto> getMovies(@RequestParam(required = false) Optional<String> type) {
-        return type.map(movieService::findByType).orElseGet(movieService::findAll);
+    @GetMapping("/movies")
+    Collection<MovieDtoRepresentationModel> getMovies() {
+        return movieService.findAll().stream().map(MovieDtoRepresentationModel::from).toList();
+    }
+
+    @GetMapping(value = "/movies", params = "type")
+    Collection<MovieDtoRepresentationModel> getMoviesByType(@RequestParam String type) {
+        if (type != null) {
+            return movieService.findByType(type).stream().map(MovieDtoRepresentationModel::from).toList();
+        } else {
+            return movieService.findAll().stream().map(MovieDtoRepresentationModel::from).toList();
+        }
     }
 
     @GetMapping("/movies/{id}")
-    MovieDto getMovieById(@PathVariable int id) {
-        return movieService.findById(id);
+    MovieDtoRepresentationModel getMovieById(@PathVariable int id) {
+        return MovieDtoRepresentationModel.from(movieService.findById(id));
+    }
+
+    @GetMapping("/movies/{id}/rent")
+    ResponseEntity<Void> rentMovie(@PathVariable int id) {
+        System.out.println("Renting movie with id: " + id);
+        return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/movies/{id}/return")
+    ResponseEntity<Void> returnMovie(@PathVariable int id) {
+        System.out.println("Returning movie with id: " + id);
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping("/movies/title/{title}")
-    public ResponseEntity<MovieDto> findByTitle(String title) {
+    public ResponseEntity<MovieDtoRepresentationModel> findByTitle(@PathVariable String title) {
         return movieService.findByTitle(title)
+          .map(MovieDtoRepresentationModel::from)
           .map(ResponseEntity::ok)
           .orElseGet(() -> ResponseEntity.notFound().build());
     }
