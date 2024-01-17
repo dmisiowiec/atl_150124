@@ -224,6 +224,7 @@ class MovieUnitTest {
     }
 
     public static MovieFacade inMemoryInstance() {
-        return new MovieFacade(new InMemoryMovieRepository(), movieId -> Optional.empty(), new InMemoryRentalRepository());
+        InMemoryRentalRepository rentals = new InMemoryRentalRepository();
+        return new MovieFacade(new InMemoryMovieRepository(), movieId -> Optional.empty(), rentals, new RentalProjections(rentals));
     }
 }

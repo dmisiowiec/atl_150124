@@ -10,7 +10,7 @@ import java.util.function.Function;
 
 @Public
 public record MovieFacade(MovieRepository movieRepository, DescriptionsRepository movieDescriptions,
-                          RentalHistory rentals) {
+                          RentalHistory rentals, RentalProjections rentalProjections) {
 
     public MovieDto findById(long id) {
         return movieRepository.findById(new MovieId(id))
@@ -44,11 +44,27 @@ public record MovieFacade(MovieRepository movieRepository, DescriptionsRepositor
 
     public void rentMovie(int movieId, long accountId) {
         System.out.println("Renting movie with id: " + movieId);
+
+        var user = rentalProjections.userRentals(accountId);
+        System.out.println(user);
+
+        if (!user.canRentMovies()) {
+            throw new IllegalArgumentException("User can't rent more movies!");
+        }
+
+        if (!user.canRent(new MovieId(movieId))) {
+            throw new IllegalArgumentException("User has already rented this movie!");
+        }
+
         rentals.save(new RentalEvent(RentalEvent.EventType.RENTED, new MovieId(movieId), accountId));
     }
 
     public void returnMovie(int movieId, long accountId) {
         System.out.println("Returning movie with id: " + movieId);
+        var user = rentalProjections.userRentals(accountId);
+        if (!user.canReturn(new MovieId(movieId))) {
+            throw new IllegalArgumentException("User has not rented this movie!");
+        }
         rentals.save(new RentalEvent(RentalEvent.EventType.RETURNED, new MovieId(movieId), accountId));
     }
 }
