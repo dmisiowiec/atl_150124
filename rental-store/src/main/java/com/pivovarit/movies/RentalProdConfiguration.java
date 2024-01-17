@@ -43,7 +43,7 @@ class RentalProdConfiguration {
 
     @Bean
     DescriptionsRepository descriptionsRepositoryAdapter(@Value("${service.descriptions.url}") String url) {
-        return new RestMovieDescriptionsRepository(url);
+        return new CachingDescriptionsRepository(new RestMovieDescriptionsRepository(url));
     }
 
     @Bean
