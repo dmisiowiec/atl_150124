@@ -12,17 +12,18 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
-@EnableWebSecurity
+//@EnableWebSecurity
 class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
+          .csrf(Customizer.withDefaults())
           .formLogin(Customizer.withDefaults())
           .authorizeHttpRequests(authorize -> authorize
+            .requestMatchers("/**").permitAll()
             .requestMatchers("/account/settings").authenticated()
             .requestMatchers("/account/pwned").authenticated()
-            .requestMatchers("/movies/**").authenticated()
             .anyRequest().authenticated()
           );
 

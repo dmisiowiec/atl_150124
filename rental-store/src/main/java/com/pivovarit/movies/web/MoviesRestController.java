@@ -27,6 +27,11 @@ public class MoviesRestController {
     }
 
     // curl -X POST -H "Content-Type: application/json" -d '{"id": 1, "title": "The Matrix", "type": "NEW"}' http://localhost:8081/movies
+    // curl -X POST -H "Content-Type: application/json" -d '{"id": 2, "title": "The Godfather", "type": "REGULAR"}' http://localhost:8081/movies
+    // curl -X POST -H "Content-Type: application/json" -d '{"id": 3, "title": "The Lord of the Rings", "type": "OLD"}' http://localhost:8081/movies
+    // curl -X POST -H "Content-Type: application/json" -d '{"id": 4, "title": "Pulp Fiction", "type": "REGULAR"}' http://localhost:8081/movies
+    // curl -X POST -H "Content-Type: application/json" -d '{"id": 5, "title": "The Good, the Bad and the Ugly", "type": "OLD"}' http://localhost:8081/movies
+    // curl -X POST -H "Content-Type: application/json" -d '{"id": 6, "title": "The Dark Knight", "type": "NEW"}' http://localhost:8081/movies
     @Operation(description = "Add movie")
     @PostMapping("/movies")
     Map<String, Long> addMovie(@RequestBody MovieAddRequest movie) {
