@@ -33,4 +33,9 @@ class RentalDevConfiguration {
         return movieId -> Optional.of(new RestMovieDescriptionsRepository.Description("lorem ipsum"));
     }
 
+    @Bean
+    RentalHistory inMemoryRentalHistory() {
+        return new InMemoryRentalRepository();
+    }
+
 }

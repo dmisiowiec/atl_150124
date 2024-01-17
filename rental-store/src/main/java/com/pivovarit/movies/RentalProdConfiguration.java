@@ -30,4 +30,9 @@ class RentalProdConfiguration {
     DescriptionsRepository descriptionsRepositoryAdapter(@Value("${service.descriptions.url}") String url) {
         return new RestMovieDescriptionsRepository(url);
     }
+
+    @Bean
+    RentalHistory jdbiRentalHistory(Jdbi jdbi) {
+        return new JdbiRentalHistory(jdbi);
+    }
 }
