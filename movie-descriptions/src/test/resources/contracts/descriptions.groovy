@@ -12,7 +12,7 @@ Contract.make {
     response {
         status OK()
         body(
-                id: anyNumber(),
+                id: anyPositiveInt(),
                 description: anyNonBlankString(),
         )
         headers {
