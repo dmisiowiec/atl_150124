@@ -11,7 +11,7 @@ class UserRentals {
         this.accountId = accountId;
     }
 
-    public UserRentals apply(RentalEvent event) {
+    public UserRentals apply(MovieRentalEvent event) {
         switch (event.type()) {
             case RENTED -> currentlyRented.add(event.movieId());
             case RETURNED -> currentlyRented.remove(event.movieId());
@@ -19,7 +19,7 @@ class UserRentals {
         return this;
     }
 
-    public UserRentals apply(List<RentalEvent> events) {
+    public UserRentals apply(List<MovieRentalEvent> events) {
         events.forEach(this::apply);
         return this;
     }

@@ -5,7 +5,11 @@ import java.util.List;
 interface RentalHistory {
     void save(RentalEvent event);
 
-    List<RentalEvent> findAll();
+    List<MovieRentalEvent> findAll();
 
-    List<RentalEvent> findAllBy(long accountId);
+    List<MovieRentalEvent> findAllBy(long accountId);
+
+    List<MovieRentalEvent> unprocessed();
+
+    void markProcessed(MovieRentalEvent event);
 }

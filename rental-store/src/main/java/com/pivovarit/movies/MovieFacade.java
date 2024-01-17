@@ -58,7 +58,6 @@ public record MovieFacade(MovieRepository movieRepository, DescriptionsRepositor
 
         var event = new RentalEvent(RentalEvent.EventType.RENTED, new MovieId(movieId), accountId);
         rentals.save(event);
-        publisher.send(event);
     }
 
     public void returnMovie(int movieId, long accountId) {
@@ -69,6 +68,5 @@ public record MovieFacade(MovieRepository movieRepository, DescriptionsRepositor
         }
         var event = new RentalEvent(RentalEvent.EventType.RETURNED, new MovieId(movieId), accountId);
         rentals.save(event);
-        publisher.send(event);
     }
 }

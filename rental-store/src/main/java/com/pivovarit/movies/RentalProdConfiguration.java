@@ -15,12 +15,19 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.jdbc.datasource.TransactionAwareDataSourceProxy;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 import javax.sql.DataSource;
 
 @Configuration
 @Profile("prod")
+@EnableScheduling
 class RentalProdConfiguration {
+
+    @Bean
+    RentalHistoryMessageRelay rentalHistoryMessageRelay(RentalHistory history, MessagePublisher publisher) {
+        return new RentalHistoryMessageRelay(history, publisher);
+    }
 
     @Bean
     Jdbi jdbi(DataSource ds) {
