@@ -10,7 +10,7 @@ import java.util.function.Function;
 
 @Public
 public record MovieFacade(MovieRepository movieRepository, DescriptionsRepository movieDescriptions,
-                          RentalHistory rentals, RentalProjections rentalProjections, MessagePublisher publisher) {
+                          RentalHistory rentals, RentalProjections rentalProjections) {
 
     public MovieDto findById(long id) {
         return movieRepository.findById(new MovieId(id))
